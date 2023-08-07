@@ -3,6 +3,11 @@ import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard.component';
 import { MenunavegacionComponent } from './layout/menunavegacion/menunavegacion.component';
 import { ToolbarComponent } from './layout/toolbar/toolbar.component';
+import { SharedModule } from '../shared/shared.module';
+import { TablaComponent } from './pages/alumnos/components/tabla/tabla.component';
+import { MatSidenavModule } from '@angular/material/sidenav'; 
+import { MatToolbarModule } from '@angular/material/toolbar'; 
+
 
 
 
@@ -10,10 +15,18 @@ import { ToolbarComponent } from './layout/toolbar/toolbar.component';
   declarations: [
     DashboardComponent,
     MenunavegacionComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    TablaComponent
+    
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule,
+    MatSidenavModule,
+    MatToolbarModule
+    
+    
+
   ]
 })
 export class DashboardModule { }
