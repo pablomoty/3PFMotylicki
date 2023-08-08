@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Alumno } from '../../models/modelalumno';
 
 @Component({
   selector: 'app-tabla',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./tabla.component.scss']
 })
 export class TablaComponent {
+  displayedColumns: string[] = ['id', 'nombre', 'apellido' ,'email', 'curso', 'genero', 'acciones'];
 
+  @Input()
+  dataSource: Alumno[] = [];
+
+  @Output()
+  borrarAlumnos = new EventEmitter<Alumno>();
+
+  @Output()
+  editarAlumnos = new EventEmitter<Alumno>();
 }

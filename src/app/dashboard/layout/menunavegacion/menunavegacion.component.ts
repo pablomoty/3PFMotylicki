@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menunavegacion',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./menunavegacion.component.scss']
 })
 export class MenunavegacionComponent {
+  constructor(private router: Router,) {}
 
+  desloguear(): void {
+    this.router.navigate(['auth'], {})
+}
 }

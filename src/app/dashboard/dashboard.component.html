@@ -4,25 +4,15 @@
      <app-menunavegacion></app-menunavegacion>
      
     </mat-drawer>
+
   
     <div class="example-sidenav-content">
   
-      <mat-toolbar color="primary">
-  
-        <button (click)="drawer.toggle()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-          <mat-icon>menu</mat-icon>
-        </button>
-  
-        <span>Gestion de Alumnos</span>
-  
-        <span class="example-spacer"></span>
-  
-        <button mat-raised-button (click)="abrirFormulario()">Agregar Alumno</button>
-         
-      </mat-toolbar>
-  
+      <app-toolbar [drawer]="drawer"></app-toolbar>
+
+        
       <main>
-        <app-tabla></app-tabla>
+        <app-alumnos></app-alumnos>
       </main>
       
     </div>

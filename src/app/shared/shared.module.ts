@@ -44,6 +44,8 @@ import { MatTableModule } from '@angular/material/table';
     MatRadioModule,
     MatDialogModule,
     MatTableModule,
+    NombreCompletoPipe,
+    MensajeErrorPipe
   ]
 })
 export class SharedModule { }

@@ -6,10 +6,10 @@ import { Alumno } from 'src/app/dashboard/pages/alumnos/models/modelalumno';
 })
 export class NombreCompletoPipe implements PipeTransform {
 
-  transform(user: Alumno, ...args: unknown[]): unknown {
+  transform(alumno: Alumno, ...args: unknown[]): unknown {
 
     const isUppercase = args[0] === 'uppercase';
-    const fullName = `${user.nombre} ${user.apellido}`;
+    const fullName = `${alumno.nombre} ${alumno.apellido}`;
     return isUppercase ? fullName.toUpperCase() : fullName;
   }
 

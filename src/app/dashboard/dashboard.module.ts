@@ -4,9 +4,10 @@ import { DashboardComponent } from './dashboard.component';
 import { MenunavegacionComponent } from './layout/menunavegacion/menunavegacion.component';
 import { ToolbarComponent } from './layout/toolbar/toolbar.component';
 import { SharedModule } from '../shared/shared.module';
-import { TablaComponent } from './pages/alumnos/components/tabla/tabla.component';
 import { MatSidenavModule } from '@angular/material/sidenav'; 
 import { MatToolbarModule } from '@angular/material/toolbar'; 
+import { AlumnosModule } from './pages/alumnos/alumnos.module';
+import { MatListModule } from '@angular/material/list'
 
 
 
@@ -16,17 +17,22 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     DashboardComponent,
     MenunavegacionComponent,
     ToolbarComponent,
-    TablaComponent
+    
     
   ],
   imports: [
     CommonModule,
     SharedModule,
     MatSidenavModule,
-    MatToolbarModule
+    MatToolbarModule,
+    AlumnosModule,
+    MatListModule
     
     
 
+  ],exports: [
+    DashboardComponent
+    
   ]
 })
 export class DashboardModule { }
