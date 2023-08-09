@@ -11,9 +11,9 @@ import { Alumno } from '../../models/modelalumno';
 export class FormularioComponent {
   editingUser?: Alumno;
 
-  nombreControl = new FormControl<string | null>(null, [Validators.required,Validators.minLength(2),]);
-  apellidoControl = new FormControl<string | null>(null, [Validators.required]);
-  emailControl = new FormControl<string | null>(null, [Validators.required]);
+  nombreControl = new FormControl<string | null>(null, [Validators.required, Validators.minLength(2),]);
+  apellidoControl = new FormControl<string | null>(null, [Validators.required,Validators.minLength(2),]);
+  emailControl = new FormControl<string | null>(null, [Validators.required, Validators.email]);
   cursoControl = new FormControl<string | null>(null, [Validators.required]);
   generoControl = new FormControl<string | null>(null, [Validators.required]);
 
