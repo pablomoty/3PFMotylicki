@@ -8,6 +8,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar'; 
 import { AlumnosModule } from './pages/alumnos/alumnos.module';
 import { MatListModule } from '@angular/material/list'
+import { RouterModule } from '@angular/router';
 
 
 
@@ -26,7 +27,8 @@ import { MatListModule } from '@angular/material/list'
     MatSidenavModule,
     MatToolbarModule,
     AlumnosModule,
-    MatListModule
+    MatListModule,
+    RouterModule
     
     
 
