@@ -4,13 +4,14 @@ import { BehaviorSubject, Observable, map, take } from "rxjs";
 import { Alumno } from "../dashboard/pages/alumnos/models/modelalumno";
 import { NotifierService } from "../core/services/notifier.service";
 import { Router } from "@angular/router";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private _authUser$ = new BehaviorSubject<Alumno | null>(null);
   public authUser$ = this._authUser$.asObservable();
 
-  constructor(private notifier: NotifierService, private router: Router) {}
+  constructor(private notifier: NotifierService, private router: Router, private httpClient: HttpClient) {}
 
 
   autenticacion(): Observable<boolean> {
@@ -21,23 +22,24 @@ export class AuthService {
   }
 
   login(logueo: LogueoAlumno): void {
-    const MOCK_ALUMNO: Alumno = {
-      id: 50,
-      nombre: 'Carlos',
-      apellido: 'Garcia',
-      email: 'cgarcia@gmail.com',
-      curso: 'Angular',
-      genero: 'Masculino'
-    }
-    if (logueo.email === MOCK_ALUMNO.email && logueo.apellido === MOCK_ALUMNO.apellido) {
-      
-      this._authUser$.next(MOCK_ALUMNO);
-      this.router.navigate(['/dashboard']);
-    } 
-    else {
-
-      this.notifier.showError('Email o contrasena invalida');
-      this._authUser$.next(null);
-    }
-  }
+    this.httpClient.get<Alumno[]>('http://localhost:3000/alumnos', {
+      params: {
+        email: logueo.email || '',
+        password: logueo.apellido || ''
+      }
+    }).subscribe({
+      next: (response) => {
+        if (response.length) {
+          
+          this._authUser$.next(response[0]);
+          this.router.navigate(['/dashboard']);
+        } else {
+          
+          this.notifier.showError('Email o contrasena invalida');
+          this._authUser$.next(null);
+        }
+      },
+    })
+   
+}
 }

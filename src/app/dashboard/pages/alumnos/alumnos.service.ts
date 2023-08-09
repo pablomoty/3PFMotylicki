@@ -1,26 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CrearAlumnoData, UpdateAlumnoData, Alumno } from './models/modelalumno';
-import { BehaviorSubject, Observable, delay, map, of, take } from 'rxjs';
+import { BehaviorSubject, Observable, map, mergeMap, take } from 'rxjs';
 import { NotifierService } from 'src/app/core/services/notifier.service';
-
-const USER_DB: Observable<Alumno[]> = of([
-  {
-    id: 1,
-    nombre: 'Juan',
-    apellido: 'Perez',
-    email: 'juanperez@gmail.com',
-    curso: 'JavaScript',
-    genero: 'Masculino',
-  },
-  {
-    id: 2,
-    nombre: 'Jose',
-    apellido: 'Alvarez',
-    email: 'josealvarez@gmail.com',
-    curso: 'Angular',
-    genero: 'Masculino',
-  },
-]).pipe(delay(1000));
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -30,12 +12,21 @@ export class AlumnosService {
   private _users$ = new BehaviorSubject<Alumno[]>([]);
   private users$ = this._users$.asObservable();
 
-  constructor(private notifier: NotifierService) {}
+  constructor(private notifier: NotifierService, private httpClient: HttpClient) {}
 
   loadUsers(): void {
-    USER_DB.subscribe({
-      next: (usuariosFromDb) => this._users$.next(usuariosFromDb),
-    });
+   
+    this.httpClient.get<Alumno[]>('http://localhost:3000/alumnos', {}).subscribe({
+
+      next: (response) => {
+
+        this._users$.next(response);
+      },
+      error: () => {
+        this.notifier.showError('Error');
+      },
+      
+    })
   }
 
   getUsers(): Observable<Alumno[]> {
@@ -49,46 +40,41 @@ export class AlumnosService {
     )
   }
 
-  createUser(user: CrearAlumnoData): void {
-    
-    this.users$.pipe(take(1)).subscribe({
-      next: (arrayActual) => {
-        this._users$.next([
-          ...arrayActual,
-          { ...user, id: arrayActual.length + 1 },
-        ]);
-        this.notifier.showSuccess('Alumno creado');
-      },
-    });
-  }
+  createUser(alumno: CrearAlumnoData): void {
 
-  updateUserById(id: number, usuarioActualizado: UpdateAlumnoData): void {
-    this.users$.pipe(take(1)).subscribe({
 
-      next: (arrayActual) => {
-
-        this._users$.next(
-          arrayActual.map((u) =>
-            u.id === id ? { ...u, ...usuarioActualizado } : u
+    this.httpClient.post<Alumno>('http://localhost:3000/alumnos', alumno)
+      .pipe(
+        mergeMap((userCreate) => this.users$.pipe(
+          take(1),
+          map(
+            (arrayActual) => [...arrayActual, userCreate])
           )
-        );
-
-        this.notifier.showSuccess('Alumno Actualizado');
-      },
-    });
+        )
+      )
+      .subscribe({
+        next: (arrayActualizado) => {
+          this._users$.next(arrayActualizado);
+        }
+      })
+ 
   }
+
+  updateUserById(id: number, alumnoActualizado: UpdateAlumnoData): void {
+
+    this.httpClient.put('http://localhost:3000/alumnos/' + id, alumnoActualizado).subscribe({
+
+      next: () => this.loadUsers(),
+    })
+  }
+
 
   deleteUserById(id: number): void {
-    this._users$.pipe(take(1)).subscribe({
-
-      next: (arrayActual) => {
-        this._users$.next(arrayActual.filter((u) => u.id !== id));
-        this.notifier.showSuccess('Alumno eliminado');
-
-      },
-    });
-  }
+    this.httpClient.delete('http://localhost:3000/alumnos/' + id) .pipe().subscribe({
+         
+          next: () => this.loadUsers(),
+    })
 }
 
   
-
+}
