@@ -7,7 +7,7 @@ import { Alumno } from '../../models/modelalumno';
   styleUrls: ['./tabla.component.scss']
 })
 export class TablaComponent {
-  displayedColumns: string[] = ['id', 'nombre', 'apellido' ,'email', 'curso', 'genero', 'acciones'];
+  displayedColumns: string[] = ['id', 'nombrecompleto','email', 'curso', 'genero', 'acciones'];
 
   @Input()
   dataSource: Alumno[] = [];

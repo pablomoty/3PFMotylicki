@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { MatCardModule } from '@angular/material/card';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
+import { AuthRoutingModule } from './auth-routing.module';
 
 
 
@@ -21,7 +22,8 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     RouterModule,
     MatCardModule,
-    SharedModule
+    SharedModule,
+    AuthRoutingModule
     
   ],exports: [
     AuthComponent

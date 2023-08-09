@@ -9,6 +9,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { AlumnosModule } from './pages/alumnos/alumnos.module';
 import { MatListModule } from '@angular/material/list'
 import { RouterModule } from '@angular/router';
+import { DashboardRoutingModule } from './dashboard-routing.module';
 
 
 
@@ -28,7 +29,8 @@ import { RouterModule } from '@angular/router';
     MatToolbarModule,
     AlumnosModule,
     MatListModule,
-    RouterModule
+    RouterModule,
+    DashboardRoutingModule
     
     
 
