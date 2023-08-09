@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./menunavegacion.component.scss']
 })
 export class MenunavegacionComponent {
+  
   constructor(private router: Router,) {}
 
   desloguear(): void {
